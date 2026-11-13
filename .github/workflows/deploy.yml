@@ -25,7 +25,10 @@ jobs:
           # npm 11 (Node 24) wrote the lockfile; npm 10 rejects its optional wasm deps
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
+      # `npm ci` rejects this lockfile: npm on macOS never records two optional wasm deps of
+      # rolldown (@emnapi/core, @emnapi/runtime). `npm install` keeps every locked version
+      # and fills in just those, so the install stays reproducible.
+      - run: npm install --no-audit --no-fund
       - name: Typecheck
         run: npm run typecheck
       - name: Unit tests
