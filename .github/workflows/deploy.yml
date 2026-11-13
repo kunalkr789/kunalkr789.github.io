@@ -22,7 +22,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # npm 11 (Node 24) wrote the lockfile; npm 10 rejects its optional wasm deps
+          node-version-file: .nvmrc
           cache: npm
       - run: npm ci
       - name: Typecheck
