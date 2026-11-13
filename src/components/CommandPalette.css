@@ -1,0 +1,88 @@
+.cp.MuiPaper-root {
+  margin-top: 0;
+  background: var(--node);
+  overflow: hidden;
+}
+
+.cp-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.cp-input .MuiInputBase-root {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.cp-list.MuiList-root {
+  padding: 6px;
+  max-height: min(52vh, 420px);
+  overflow-y: auto;
+}
+
+.cp-group.MuiListSubheader-root {
+  padding: 8px 10px 2px;
+  line-height: 1.6;
+  font: 500 11px var(--mono);
+  color: var(--faint);
+  background: transparent;
+}
+
+.cp-item.MuiListItemButton-root {
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.cp-item svg {
+  flex: none;
+  color: var(--muted);
+}
+
+.cp-item span {
+  flex: 1;
+}
+
+.cp-item small {
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.cp-item.Mui-selected,
+.cp-item.Mui-selected:hover {
+  background: var(--sel-soft);
+  color: var(--ink);
+}
+
+.cp-item.Mui-selected svg {
+  color: var(--sel);
+}
+
+.cp-empty {
+  list-style: none;
+  padding: 28px;
+  text-align: center;
+  color: var(--faint);
+  font-size: 14px;
+}
+
+.cp-foot {
+  display: flex;
+  gap: 16px;
+  padding: 9px 14px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--faint);
+}
+
+@media (max-width: 560px) {
+  .cp-foot {
+    display: none;
+  }
+}

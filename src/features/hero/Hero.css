@@ -1,0 +1,221 @@
+.enter {
+  animation: enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.enter.late {
+  animation-delay: 0.25s;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.hero {
+  position: relative;
+  padding-top: 12px;
+}
+
+.frame-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.frame-corner {
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid var(--muted);
+  border-left: 1.5px solid var(--muted);
+}
+
+.hero-name {
+  font-size: clamp(64px, 10vw, 136px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin-bottom: 22px;
+}
+
+.hero-lede {
+  max-width: 680px;
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.lede-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--k-subflow);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.pl-link {
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+
+.pro-btn {
+  border-color: color-mix(in srgb, var(--k-output) 45%, var(--line-2));
+}
+
+.pro-btn svg {
+  color: var(--k-output);
+}
+
+.hero-lede em {
+  font-family: var(--serif);
+  font-size: 1.22em;
+  font-style: italic;
+  color: var(--k-trigger);
+}
+
+/* hand-drawn canvas annotation */
+.hero-annot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 4px;
+  margin: 10px 6% 14px 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.15;
+  color: var(--k-trigger);
+  text-align: left;
+}
+
+.annot-arrow {
+  width: 90px;
+  height: 45px;
+  order: 2;
+  transform: scaleX(-1) translateY(10px);
+}
+
+.annot-arrow path {
+  fill: none;
+  stroke: var(--k-trigger);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 700px) {
+  .hero-annot {
+    display: none;
+  }
+  .hero-lede {
+    margin-bottom: 28px;
+  }
+}
+
+.hero-node .fnode-body {
+  padding: 0;
+}
+
+.trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+}
+
+@container (max-width: 720px) {
+  .trigger {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trigger-when,
+.trigger-then {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 26px 26px;
+}
+
+@container (max-width: 520px) {
+  .trigger-when,
+  .trigger-then {
+    padding: 18px 16px 20px;
+  }
+}
+
+.trigger-when {
+  border-right: 1px solid var(--line);
+}
+
+@container (max-width: 720px) {
+  .trigger-when {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+.trigger-when p {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.trigger .label {
+  text-transform: uppercase;
+}
+
+.payload {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--node-2);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.75;
+  overflow-x: auto;
+}
+
+.pl-row {
+  display: flex;
+  gap: 6px;
+  padding-left: 18px;
+  white-space: nowrap;
+}
+
+.pl-key {
+  color: var(--k-action);
+}
+
+.pl-val {
+  color: var(--k-trigger);
+  font-weight: 600;
+}
+
+.pl-colon {
+  color: var(--muted);
+  margin-left: -4px;
+}
+
+.pl-cmt {
+  margin-left: 10px;
+  color: var(--faint);
+}
+
+@container (max-width: 560px) {
+  .pl-cmt {
+    display: none;
+  }
+}
+
+.trigger-then .MuiButton-root {
+  justify-content: center;
+}
+
+.trigger-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 12px;
+  color: var(--ok);
+}

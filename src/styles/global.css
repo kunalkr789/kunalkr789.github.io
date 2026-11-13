@@ -1,0 +1,277 @@
+/*
+ * A workflow-builder canvas: warm paper, dotted grid, white nodes,
+ * and one colour per node type, the way flow editors tell nodes apart.
+ */
+:root,
+:root[data-theme='light'] {
+  --canvas: #f3f1ec;
+  --dot: #d6d1c6;
+  --panel: #fbfaf7;
+  --node: #ffffff;
+  --node-2: #f7f5f0;
+  --line: #e4e0d6;
+  --line-2: #cfc9bc;
+  --ink: #1d1c1a;
+  --ink-2: #4a4741;
+  --muted: #5f5b53;
+  --faint: #736e64;
+  --sel: #3b5bdb;
+  --sel-soft: rgba(59, 91, 219, 0.12);
+  --edge: #b9b3a6;
+  --ok: #2b8a3e;
+  --warn: #d9480f;
+  --err: #e03131;
+  --console: #1d1c1a;
+  --console-ink: #e9e6df;
+  --shadow: 0 1px 2px rgba(29, 28, 26, 0.06), 0 8px 24px -12px rgba(29, 28, 26, 0.18);
+  --shadow-lg: 0 2px 4px rgba(29, 28, 26, 0.05), 0 24px 48px -24px rgba(29, 28, 26, 0.3);
+
+  --k-trigger: #e8590c;
+  --k-action: #3b5bdb;
+  --k-subflow: #c98800;
+  --k-condition: #9c36b5;
+  --k-loop: #0c8599;
+  --k-data: #2b8a3e;
+  --k-output: #c2255c;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --canvas: #151513;
+  --dot: #2c2b28;
+  --panel: #1a1a18;
+  --node: #1f1f1d;
+  --node-2: #262623;
+  --line: #2f2e2a;
+  --line-2: #403e39;
+  --ink: #eceae4;
+  --ink-2: #c9c5bc;
+  --muted: #b0ab9f;
+  --faint: #99948a;
+  --sel: #7b93f0;
+  --sel-soft: rgba(123, 147, 240, 0.16);
+  --edge: #4d4a44;
+  --ok: #51cf66;
+  --warn: #ff922b;
+  --err: #ff6b6b;
+  --console: #0f0f0e;
+  --console-ink: #e9e6df;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3), 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+
+  --k-trigger: #ff8a3d;
+  --k-action: #7b93f0;
+  --k-subflow: #fcc419;
+  --k-condition: #cc7ae0;
+  --k-loop: #3bc9db;
+  --k-data: #69db7c;
+  --k-output: #f06595;
+  color-scheme: dark;
+}
+
+:root {
+  --sans: 'Geist Variable', system-ui, -apple-system, sans-serif;
+  --mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, monospace;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --palette-w: 216px;
+  --inspector-w: 272px;
+  --bar-h: 52px;
+}
+
+/* Element resets sit in a layer so any component style (MUI or ours) outranks them. */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--bar-h) + 24px);
+  }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    font: 15px/1.6 var(--sans);
+    background-color: var(--canvas);
+    background-image: radial-gradient(circle at 1px 1px, var(--dot) 1.1px, transparent 0);
+    background-size: 20px 20px;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--sel);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--sel-soft);
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+.serif {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.label {
+  font: 500 11px/1.2 var(--mono);
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  z-index: 200;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: var(--sel);
+  color: #fff;
+}
+
+.skip:focus {
+  left: 8px;
+}
+
+/* ---------- primitives ---------- */
+.dot {
+  --c: var(--faint);
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c);
+  flex: none;
+}
+
+.dot.ok {
+  --c: var(--ok);
+}
+
+.dot.warn {
+  --c: var(--warn);
+}
+
+.dot.err {
+  --c: var(--err);
+}
+
+.dot.sel {
+  --c: var(--sel);
+}
+
+.dot.pulse {
+  box-shadow: 0 0 0 0 var(--c);
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.spin {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.7s linear infinite;
+  flex: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border: 1px solid var(--line-2);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font: 500 10.5px/1 var(--mono);
+  color: var(--muted);
+  background: var(--node);
+}
+
+/* the run console every flow tool has */
+.console {
+  background: var(--console);
+  color: var(--console-ink);
+  font: 400 12.5px/1.65 var(--mono);
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

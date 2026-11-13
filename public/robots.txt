@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kunalkr789.github.io/sitemap.xml

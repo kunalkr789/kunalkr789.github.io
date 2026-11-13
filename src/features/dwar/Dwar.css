@@ -1,0 +1,407 @@
+.k-subflow .fnode {
+  border-width: 1.5px;
+  border-color: color-mix(in srgb, var(--k) 45%, var(--line));
+}
+
+.k-subflow .fnode.selected {
+  border-color: var(--k);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--k) 20%, transparent), var(--shadow-lg);
+}
+
+.dwar-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -6px 0 22px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 99px;
+  border: 1px solid var(--line-2);
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.pill.pro {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--k-output) 14%, transparent);
+  color: var(--k-output);
+  font-weight: 600;
+}
+
+.dwar-links {
+  margin-left: auto;
+}
+
+@container (max-width: 620px) {
+  .dwar-links {
+    margin-left: 0;
+    width: 100%;
+  }
+  .dwar-links .MuiButton-root {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* facts */
+.dwar-facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+@container (max-width: 560px) {
+  .dwar-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  border-right: 1px solid var(--line);
+  background: var(--node-2);
+}
+
+.fact:last-child {
+  border-right: 0;
+}
+
+@container (max-width: 560px) {
+  .fact:nth-child(2) {
+    border-right: 0;
+  }
+  .fact:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+.fact b {
+  font-size: 40px;
+  line-height: 1;
+  color: var(--k);
+}
+
+.fact span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* before / after */
+.ba {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 18px;
+}
+
+@container (max-width: 620px) {
+  .ba {
+    grid-template-columns: 1fr;
+  }
+  .ba-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+.ba-col {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+.ba-col.before {
+  background: var(--node-2);
+}
+
+.ba-col.after {
+  background: color-mix(in srgb, var(--k) 7%, var(--node));
+  border-color: color-mix(in srgb, var(--k) 35%, var(--line));
+}
+
+.ba-col ul {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.ba-col li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.before li {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--err) 50%, transparent);
+}
+
+.before svg {
+  color: var(--err);
+  flex: none;
+}
+
+.after li {
+  color: var(--ink);
+}
+
+.after svg {
+  color: var(--ok);
+  flex: none;
+}
+
+.ba-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--k);
+}
+
+/* journey */
+.journey {
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--node-2);
+  margin-bottom: 18px;
+}
+
+.journey-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.j-steps {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+@container (max-width: 700px) {
+  .j-steps {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .j-steps li {
+    flex: 0 0 auto;
+    min-width: 96px;
+  }
+}
+
+.j-steps li {
+  position: relative;
+}
+
+/* connector between step nodes */
+.j-steps li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: calc(50% + 17px);
+  right: calc(-50% + 17px);
+  height: 2px;
+  background: var(--line-2);
+  transition: background 0.3s;
+}
+
+.j-steps li.past::after {
+  background: var(--k);
+}
+
+.j-steps button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0 2px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.j-n {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1.5px solid var(--line-2);
+  background: var(--node);
+  font-size: 12px;
+  color: var(--muted);
+  transition: all 0.25s;
+}
+
+.j-steps li.past .j-n {
+  border-color: var(--k);
+  color: var(--k);
+}
+
+.j-steps li.now .j-n {
+  background: var(--k);
+  border-color: var(--k);
+  color: #fff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--k) 22%, transparent);
+}
+
+.j-name {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.j-steps li.now .j-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.j-detail {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--node);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+@container (max-width: 620px) {
+  .j-detail {
+    grid-template-columns: 1fr;
+  }
+}
+
+.j-detail p {
+  margin-top: 4px;
+  font-size: 14.5px;
+}
+
+.j-how {
+  color: var(--ink-2);
+  font-size: 13.5px !important;
+}
+
+.j-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--k);
+  transform-origin: left;
+}
+
+/* roles + also built */
+.dwar-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.dwar-grid > * {
+  min-width: 0;
+}
+
+@container (max-width: 820px) {
+  .dwar-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.roles-wrap,
+.also {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roles-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.roles {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.roles .role-name {
+  font-weight: 600;
+}
+
+.roles .MuiTableRow-root:last-child .MuiTableCell-body {
+  border-bottom: 0;
+}
+
+.roles td.yes {
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.roles td.no {
+  color: var(--faint);
+}
+
+.roles td.part {
+  font: 500 11px var(--mono);
+  color: var(--k);
+}
+
+.also ul {
+  margin: 0;
+  padding: 12px 14px 12px 30px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--node-2);
+  display: grid;
+  gap: 6px;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+.also li::marker {
+  color: var(--k);
+}
+
+.dwar-stack {
+  display: grid;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line-2);
+}
+
+.dwar-note {
+  font-size: 11.5px;
+  color: var(--faint);
+}

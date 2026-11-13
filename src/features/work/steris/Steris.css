@@ -1,0 +1,245 @@
+/* ---------- tree data grid ---------- */
+.grid-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gd-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.gd-search {
+  flex: 1;
+}
+
+.gd-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.gd-meta b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.gd-hint {
+  color: var(--faint);
+}
+
+.gd-meta .spin {
+  margin-left: 6px;
+  color: var(--k-action);
+}
+
+.gd-scroll {
+  height: 340px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--node);
+}
+
+.gd-table .MuiTableCell-root {
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.gd-table .MuiTableCell-head {
+  background: var(--node-2);
+}
+
+.gd-group.l0 .MuiTableCell-root {
+  background: color-mix(in srgb, var(--k-action) 6%, var(--node));
+}
+
+.gd-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.gd-group.l1 .gd-toggle {
+  padding-left: 18px;
+  font-weight: 500;
+}
+
+.gd-toggle svg {
+  transition: transform 0.15s;
+}
+
+.gd-toggle svg.closed {
+  transform: rotate(-90deg);
+}
+
+.gd-count {
+  padding: 0 6px;
+  border-radius: 99px;
+  background: var(--node-2);
+  border: 1px solid var(--line);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.gd-avg {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.gd-name {
+  padding-left: 46px !important;
+}
+
+.gd-progress {
+  display: grid;
+  grid-template-columns: 1fr 34px;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+}
+
+.gd-progress .MuiLinearProgress-root {
+  height: 5px;
+  border-radius: 3px;
+}
+
+.gd-dim {
+  color: var(--faint);
+}
+
+.gd-sentinel {
+  text-align: center;
+  font-size: 11px;
+  color: var(--faint) !important;
+  padding: 10px !important;
+}
+
+.gd-notes {
+  max-width: 340px;
+}
+
+.gd-notes .MuiListItemText-primary {
+  font-size: 13px;
+  white-space: normal;
+}
+
+.sub-caret {
+  margin-left: 16px;
+  transform: rotate(-90deg);
+  color: var(--muted);
+}
+
+.cert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 22px 16px;
+  border: 2px double var(--k-subflow);
+  border-radius: 6px;
+  text-align: center;
+  background: color-mix(in srgb, var(--k-subflow) 5%, var(--node));
+}
+
+.cert b.serif {
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.cert-k {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--k-subflow);
+}
+
+.cert-no {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.cert-org {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- interconnected form ---------- */
+.form-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@container (max-width: 520px) {
+  .fd-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fd-group.MuiListSubheader-root {
+  line-height: 30px;
+  font: 600 11px/30px var(--mono);
+  color: var(--muted);
+}
+
+.fd-opts {
+  padding: 0;
+}
+
+.fd-why {
+  margin-left: 4px;
+  font-size: 11.5px;
+  color: var(--faint);
+}
+
+.fd-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fd-summary {
+  padding: 10px 12px;
+  font-size: 12px;
+}
+
+.fd-k {
+  display: inline-block;
+  width: 52px;
+  color: #8a867d;
+}
+
+.fd-ok {
+  color: #8ce99a;
+}
+
+.fd-err {
+  color: #ffa8a8;
+}
+
+.fd-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
